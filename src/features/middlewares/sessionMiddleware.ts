@@ -6,6 +6,7 @@ import {
   Databases,
   Models,
   Storage,
+  TablesDB,
   type Account as AccountType,
   type Databases as DatabaseType,
   type Storage as StorageType,
@@ -19,6 +20,7 @@ type AdditionalContext = {
   Variables: {
     account: AccountType;
     databases: DatabaseType;
+    tables: TablesDB;
     storage: StorageType;
     users: UsersType;
     user: Models.User<Models.Preferences>;
@@ -42,11 +44,13 @@ export const sessionMiddleware = createMiddleware<AdditionalContext>(
     const account = new Account(client);
     const databases = new Databases(client);
     const storage = new Storage(client);
+    const tables = new TablesDB(client);
 
     const user = await account.get();
 
     ctx.set("account", account);
     ctx.set("databases", databases);
+    ctx.set("tables", tables);
     ctx.set("storage", storage);
     ctx.set("user", user);
 

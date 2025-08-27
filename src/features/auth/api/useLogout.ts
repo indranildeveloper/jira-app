@@ -2,7 +2,7 @@ import { useRouter } from "next/navigation";
 import { InferResponseType } from "hono";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
-import { client } from "@/utils/rpc";
+import { client } from "@/hono/rpc";
 
 type ResponseType = InferResponseType<(typeof client.api.auth.logout)["$post"]>;
 
@@ -18,8 +18,22 @@ export const useLogout = () => {
     onSuccess: () => {
       toast.success("User Logged Out Successfully!");
       router.refresh();
-      // eslint-disable-next-line @typescript-eslint/no-floating-promises
-      queryClient.invalidateQueries({ queryKey: ["current"] });
+      queryClient
+        .invalidateQueries({ queryKey: ["current"] })
+        .catch((error) =>
+          console.error(
+            "Something went wrong while invalidating the query:",
+            error,
+          ),
+        );
+      queryClient
+        .invalidateQueries({ queryKey: ["workspaces"] })
+        .catch((error) =>
+          console.error(
+            "Something went wrong while invalidating the query:",
+            error,
+          ),
+        );
     },
     onError: () => {
       toast.error("Failed to Log Out!");

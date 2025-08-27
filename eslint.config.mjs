@@ -53,6 +53,7 @@ const eslintConfig = [
       "*.config.mjs",
       "convex",
       "src/db/prisma/**",
+      "*.d.ts",
     ],
   },
 ];
