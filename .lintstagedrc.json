@@ -1,0 +1,7 @@
+{
+  "*.{ts,tsx}": [
+    "pnpm lint:check",
+    "bash -c 'pnpm types:check'",
+    "pnpm format:check"
+  ]
+}

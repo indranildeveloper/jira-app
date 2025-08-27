@@ -1,0 +1,40 @@
+import { FC } from "react";
+import type { Metadata } from "next";
+import { Inter, Fira_Code } from "next/font/google";
+import { Toaster } from "@/components/ui/sonner";
+import QueryProvider from "@/components/providers/ReactQueryClientProvider";
+import { RootLayoutProps } from "@/interfaces/RootLayoutProps";
+
+import "@/styles/globals.css";
+
+const interSans = Inter({
+  variable: "--font-inter-sans",
+  subsets: ["latin"],
+});
+
+const firaCode = Fira_Code({
+  variable: "--font-fira-code",
+  subsets: ["latin"],
+});
+
+export const metadata: Metadata = {
+  title: "Jira App",
+  description: "The next generation task management app.",
+};
+
+const RootLayout: FC<RootLayoutProps> = ({ children }) => {
+  return (
+    <html lang="en">
+      <body
+        className={`${interSans.variable} ${firaCode.variable} min-h-screen antialiased`}
+      >
+        <QueryProvider>
+          <main className="font-sans">{children}</main>
+          <Toaster theme="light" richColors />
+        </QueryProvider>
+      </body>
+    </html>
+  );
+};
+
+export default RootLayout;
