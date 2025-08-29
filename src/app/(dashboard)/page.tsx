@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { getCurrentUser } from "@/features/auth/actions/getCurrentUser";
 import { redirect } from "next/navigation";
-import CreateWorkspaceForm from "@/components/shared/dashboard/CreateWorkspaceForm";
+import { getWorkspaces } from "@/features/workspaces/actions/getWorkspaces";
 
 const HomePage: FC = async () => {
   const user = await getCurrentUser();
@@ -10,13 +10,13 @@ const HomePage: FC = async () => {
     return redirect("/login");
   }
 
-  return (
-    <div className="m-10 flex gap-4">
-      <div className="w-full">
-        <CreateWorkspaceForm />
-      </div>
-    </div>
-  );
+  const workspaces = await getWorkspaces();
+
+  if (workspaces.total === 0) {
+    return redirect("/workspaces/create");
+  } else {
+    redirect(`/workspaces/${workspaces.rows[0].$id}`);
+  }
 };
 
 export default HomePage;

@@ -30,7 +30,7 @@ const WorkspaceSwitcher: FC = () => {
         <RiAddCircleFill className="size-5 cursor-pointer text-slate-500 transition hover:opacity-75" />
       </div>
       <Select value={workspaceId} onValueChange={handleWorkspaceChange}>
-        <SelectTrigger className="w-full bg-slate-200 p-1 font-medium">
+        <SelectTrigger className="w-full bg-slate-200 py-6 font-medium">
           <SelectValue placeholder="No workspace selected" />
         </SelectTrigger>
         <SelectContent>

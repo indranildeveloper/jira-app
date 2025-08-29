@@ -12,8 +12,6 @@ export const getCurrentUser = async () => {
 
     const session = (await cookies()).get(AUTH_COOKIE);
 
-    // console.log(session?.value);
-
     if (!session) {
       return null;
     }
