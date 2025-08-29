@@ -3,6 +3,7 @@
 import { ChangeEvent, FC, useRef } from "react";
 import { useForm } from "react-hook-form";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Separator } from "@/components/ui/separator";
@@ -28,6 +29,7 @@ import { CreateWorkspaceFormProps } from "@/interfaces/CreateWorkspaceFormProps"
 const CreateWorkspaceForm: FC<CreateWorkspaceFormProps> = ({
   handleCancel,
 }) => {
+  const router = useRouter();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { mutate: createWorkspace, isPending } = useCreateWorkspace();
 
@@ -47,9 +49,9 @@ const CreateWorkspaceForm: FC<CreateWorkspaceFormProps> = ({
     createWorkspace(
       { form: finalValues },
       {
-        onSuccess: () => {
+        onSuccess: ({ data }) => {
           form.reset();
-          // TODO: Redirect to new workspace
+          router.push(`/workspaces/${data.$id}`);
         },
       },
     );
@@ -64,7 +66,7 @@ const CreateWorkspaceForm: FC<CreateWorkspaceFormProps> = ({
   };
 
   return (
-    <Card className="h-full w-full">
+    <Card className="h-full w-full border-none shadow-none">
       <CardHeader className="flex">
         <CardTitle className="text-xl font-bold">
           Create a new Workspace

@@ -1,6 +1,7 @@
 import { FC } from "react";
 import type { Metadata } from "next";
 import { Inter, Fira_Code } from "next/font/google";
+import { NuqsAdapter } from "nuqs/adapters/next/app";
 import { Toaster } from "@/components/ui/sonner";
 import QueryProvider from "@/components/providers/ReactQueryClientProvider";
 import { RootLayoutProps } from "@/interfaces/RootLayoutProps";
@@ -28,10 +29,12 @@ const RootLayout: FC<RootLayoutProps> = ({ children }) => {
       <body
         className={`${interSans.variable} ${firaCode.variable} min-h-screen antialiased`}
       >
-        <QueryProvider>
-          <main className="font-sans">{children}</main>
-          <Toaster theme="light" richColors />
-        </QueryProvider>
+        <NuqsAdapter>
+          <QueryProvider>
+            <main className="font-sans">{children}</main>
+            <Toaster theme="light" richColors />
+          </QueryProvider>
+        </NuqsAdapter>
       </body>
     </html>
   );

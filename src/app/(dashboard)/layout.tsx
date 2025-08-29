@@ -2,10 +2,12 @@ import { FC } from "react";
 import { DashboardLayoutProps } from "@/interfaces/DashboardLayoutProps";
 import Sidebar from "@/components/shared/dashboard/Sidebar";
 import Navbar from "@/components/shared/dashboard/Navbar";
+import CreateWorkspaceModal from "@/components/shared/dashboard/CreateWorkspaceModal";
 
 const DashboardLayout: FC<DashboardLayoutProps> = ({ children }) => {
   return (
     <div className="min-h-screen">
+      <CreateWorkspaceModal />
       <div className="flex h-full w-full">
         <div className="fixed top-0 left-0 hidden h-full overflow-y-auto lg:block lg:w-[264px]">
           <Sidebar />
