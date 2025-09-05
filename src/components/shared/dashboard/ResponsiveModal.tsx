@@ -1,8 +1,9 @@
 "use client";
 
 import { FC } from "react";
+
 import { useMedia } from "react-use";
-import { ResponsiveModalProps } from "@/interfaces/ResponsiveModalProps";
+
 import {
   Dialog,
   DialogContent,
@@ -15,6 +16,7 @@ import {
   DrawerHeader,
   DrawerTitle,
 } from "@/components/ui/drawer";
+import { ResponsiveModalProps } from "@/interfaces/ResponsiveModalProps";
 
 const ResponsiveModal: FC<ResponsiveModalProps> = ({
   children,

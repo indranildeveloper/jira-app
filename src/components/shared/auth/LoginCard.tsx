@@ -1,13 +1,16 @@
 "use client";
 
 import { FC } from "react";
-import Link from "next/link";
-import { useForm } from "react-hook-form";
+
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Separator } from "@/components/ui/separator";
+import { useForm } from "react-hook-form";
+import { FaGithub } from "react-icons/fa";
+import { FcGoogle } from "react-icons/fc";
+
+import Link from "next/link";
+
 import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Form,
   FormControl,
@@ -16,13 +19,13 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { FcGoogle } from "react-icons/fc";
-import { FaGithub } from "react-icons/fa";
+import { Input } from "@/components/ui/input";
+import { Separator } from "@/components/ui/separator";
+import { useLogin } from "@/features/auth/api/useLogin";
 import {
   signInFormSchema,
   signInFormValidator,
 } from "@/validators/auth/signInFormValidator";
-import { useLogin } from "@/features/auth/api/useLogin";
 
 const LoginCard: FC = () => {
   const { mutate, isPending } = useLogin();
@@ -79,9 +82,9 @@ const LoginCard: FC = () => {
                   <FormControl>
                     <Input
                       type="password"
-                      placeholder="Enter password"
-                      min={8}
                       max={256}
+                      min={8}
+                      placeholder="Enter password"
                       {...field}
                     />
                   </FormControl>
@@ -99,10 +102,10 @@ const LoginCard: FC = () => {
         <Separator />
       </div>
       <CardContent className="flex flex-col gap-y-4">
-        <Button variant="secondary" className="w-full" disabled={isPending}>
+        <Button className="w-full" disabled={isPending} variant="secondary">
           <FcGoogle className="mr-2 size-5" /> Login with Google
         </Button>
-        <Button variant="secondary" className="w-full" disabled={isPending}>
+        <Button className="w-full" disabled={isPending} variant="secondary">
           <FaGithub className="mr-2 size-5" /> Login with GitHub
         </Button>
       </CardContent>

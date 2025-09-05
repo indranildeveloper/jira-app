@@ -1,11 +1,13 @@
 "use client";
 
 import { FC } from "react";
+
 import {
   isServer,
   QueryClient,
   QueryClientProvider,
 } from "@tanstack/react-query";
+
 import { QueryProviderProps } from "@/interfaces/QueryProviderProps";
 
 function makeQueryClient() {

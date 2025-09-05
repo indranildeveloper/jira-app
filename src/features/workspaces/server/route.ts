@@ -1,8 +1,7 @@
+import { zValidator } from "@hono/zod-validator";
 import { Hono } from "hono";
 import { ID, Query } from "node-appwrite";
-import { zValidator } from "@hono/zod-validator";
-import { createWorkSpaceSchema } from "@/validators/workspaces/createWorkspaceValidator";
-import { sessionMiddleware } from "@/features/middlewares/sessionMiddleware";
+
 import {
   DATABASE_ID,
   IMAGES_BUCKET_ID,
@@ -10,7 +9,9 @@ import {
   WORKSPACES_ID,
 } from "@/config/config";
 import { MemberRole } from "@/features/members/constants/constants";
+import { sessionMiddleware } from "@/features/middlewares/sessionMiddleware";
 import { generateInviteCode } from "@/utils/generateInviteCode";
+import { createWorkSpaceSchema } from "@/validators/workspaces/createWorkspaceValidator";
 
 const app = new Hono()
   .get("/", sessionMiddleware, async (ctx) => {

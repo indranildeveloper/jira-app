@@ -1,12 +1,17 @@
 "use client";
 
 import { ChangeEvent, FC, useRef } from "react";
+
+import { zodResolver } from "@hookform/resolvers/zod";
+import { ImageIcon } from "lucide-react";
 import { useForm } from "react-hook-form";
+
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Separator } from "@/components/ui/separator";
 import {
   Form,
   FormControl,
@@ -16,15 +21,14 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
+import { useCreateWorkspace } from "@/features/workspaces/api/useCreateWorkspace";
+import { CreateWorkspaceFormProps } from "@/interfaces/CreateWorkspaceFormProps";
+import { cn } from "@/lib/utils";
 import {
   createWorkSpaceSchema,
   createWorkspaceValidator,
 } from "@/validators/workspaces/createWorkspaceValidator";
-import { ImageIcon } from "lucide-react";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { useCreateWorkspace } from "@/features/workspaces/api/useCreateWorkspace";
-import { CreateWorkspaceFormProps } from "@/interfaces/CreateWorkspaceFormProps";
 
 const CreateWorkspaceForm: FC<CreateWorkspaceFormProps> = ({
   handleCancel,
@@ -80,8 +84,8 @@ const CreateWorkspaceForm: FC<CreateWorkspaceFormProps> = ({
           <form onSubmit={form.handleSubmit(handleCreateWorkspace)}>
             <div className="flex flex-col gap-y-6">
               <FormField
-                control={form.control}
                 name="name"
+                control={form.control}
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Workspace Name</FormLabel>
@@ -93,8 +97,8 @@ const CreateWorkspaceForm: FC<CreateWorkspaceFormProps> = ({
                 )}
               />
               <FormField
-                control={form.control}
                 name="image"
+                control={form.control}
                 render={({ field }) => (
                   <div className="flex flex-col gap-y-2">
                     <div className="flex items-center gap-x-5">
@@ -106,9 +110,9 @@ const CreateWorkspaceForm: FC<CreateWorkspaceFormProps> = ({
                                 ? URL.createObjectURL(field.value)
                                 : field.value
                             }
-                            fill
-                            className="object-cover"
                             alt="Workspace logo"
+                            className="object-cover"
+                            fill
                           />
                         </div>
                       ) : (
@@ -126,17 +130,17 @@ const CreateWorkspaceForm: FC<CreateWorkspaceFormProps> = ({
                         <input
                           ref={fileInputRef}
                           type="file"
-                          className="hidden"
                           accept=".jpg, .png, .jpeg, .svg"
+                          className="hidden"
                           disabled={isPending}
                           onChange={handleImageChange}
                         />
                         <Button
                           type="button"
-                          disabled={isPending}
-                          variant="secondary"
-                          size="sm"
                           className="mt-2 w-fit"
+                          disabled={isPending}
+                          size="sm"
+                          variant="secondary"
                           onClick={() => fileInputRef.current?.click()}
                         >
                           Upload Image
@@ -150,18 +154,19 @@ const CreateWorkspaceForm: FC<CreateWorkspaceFormProps> = ({
             <div className="mt-5 flex items-center justify-end gap-4">
               <Button
                 type="button"
+                className={cn(!handleCancel && "invisible")}
+                disabled={isPending}
                 size="lg"
                 variant="secondary"
                 onClick={handleCancel}
-                disabled={isPending}
               >
                 Cancel
               </Button>
               <Button
                 type="submit"
+                disabled={isPending}
                 size="lg"
                 variant="default"
-                disabled={isPending}
               >
                 Create Workspace
               </Button>

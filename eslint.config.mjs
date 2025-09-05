@@ -8,6 +8,8 @@ import pluginReact from "eslint-plugin-react";
 import prettierPlugin from "eslint-plugin-prettier";
 import eslintConfigPrettier from "eslint-config-prettier";
 import typescriptParser from "@typescript-eslint/parser";
+import pluginImport from "eslint-plugin-import";
+import stylistic from "@stylistic/eslint-plugin";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -29,6 +31,8 @@ const eslintConfig = [
     },
     plugins: {
       prettier: prettierPlugin,
+      import: pluginImport,
+      "@stylistic": stylistic,
     },
   },
   eslintConfigPrettier,
@@ -42,6 +46,58 @@ const eslintConfig = [
       "@typescript-eslint/no-unsafe-member-access": "off",
       "@typescript-eslint/no-unsafe-assignment": "off",
       "@typescript-eslint/no-misused-promises": "off",
+      "import/order": [
+        "error",
+        {
+          groups: [
+            "builtin",
+            "external",
+            "internal",
+            ["parent", "sibling"],
+            "index",
+          ],
+          pathGroups: [
+            {
+              pattern: "react",
+              group: "external",
+              position: "before",
+            },
+            {
+              pattern: "next/**",
+              group: "external",
+              position: "after",
+            },
+          ],
+          pathGroupsExcludedImportTypes: ["react"],
+          "newlines-between": "always",
+          alphabetize: {
+            order: "asc",
+            caseInsensitive: true,
+          },
+        },
+      ],
+      "@stylistic/jsx-sort-props": [
+        "error",
+        {
+          reservedFirst: [
+            "key",
+            "ref",
+            "id",
+            "className",
+            "src",
+            "alt",
+            "type",
+            "name",
+            "value",
+          ],
+          callbacksLast: true,
+          shorthandLast: true,
+          ignoreCase: true,
+        },
+      ],
+      "import/first": "error",
+      "import/newline-after-import": "error",
+      "import/no-duplicates": "error",
     },
   },
   {

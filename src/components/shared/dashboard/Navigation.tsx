@@ -1,7 +1,9 @@
 import { FC } from "react";
+
 import Link from "next/link";
-import { cn } from "@/lib/utils";
+
 import { routes } from "@/constants/routes";
+import { cn } from "@/lib/utils";
 
 const Navigation: FC = () => {
   return (

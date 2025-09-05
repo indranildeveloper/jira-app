@@ -1,10 +1,10 @@
 "use client";
 
 import { FC } from "react";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+
 import { LoaderIcon, LogOutIcon } from "lucide-react";
-import { useLogout } from "@/features/auth/api/useLogout";
-import { useCurrentUser } from "@/features/auth/api/useCurrentUser";
+
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -12,6 +12,8 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Separator } from "@/components/ui/separator";
+import { useCurrentUser } from "@/features/auth/api/useCurrentUser";
+import { useLogout } from "@/features/auth/api/useLogout";
 
 const UserButton: FC = () => {
   const { data: user, isLoading } = useCurrentUser();
@@ -37,7 +39,7 @@ const UserButton: FC = () => {
 
   return (
     <DropdownMenu modal={false}>
-      <DropdownMenuTrigger className="relative outline-none">
+      <DropdownMenuTrigger className="relative cursor-pointer outline-none">
         <Avatar className="size-10 border border-slate-300 hover:opacity-75">
           <AvatarFallback className="flex items-center justify-center bg-slate-200 font-medium text-slate-500">
             {avatarFallback}
@@ -45,8 +47,8 @@ const UserButton: FC = () => {
         </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent
-        className="w-60"
         align="end"
+        className="w-60"
         side="bottom"
         sideOffset={10}
       >

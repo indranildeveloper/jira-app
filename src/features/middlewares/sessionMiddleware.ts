@@ -1,5 +1,7 @@
 import "server-only";
 
+import { getCookie } from "hono/cookie";
+import { createMiddleware } from "hono/factory";
 import {
   Account,
   Client,
@@ -12,8 +14,7 @@ import {
   type Storage as StorageType,
   type Users as UsersType,
 } from "node-appwrite";
-import { getCookie } from "hono/cookie";
-import { createMiddleware } from "hono/factory";
+
 import { AUTH_COOKIE } from "../auth/constants/constants";
 
 type AdditionalContext = {

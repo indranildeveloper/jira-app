@@ -1,5 +1,7 @@
 import { FC } from "react";
+
 import { redirect, RedirectType } from "next/navigation";
+
 import LoginCard from "@/components/shared/auth/LoginCard";
 import { getCurrentUser } from "@/features/auth/actions/getCurrentUser";
 

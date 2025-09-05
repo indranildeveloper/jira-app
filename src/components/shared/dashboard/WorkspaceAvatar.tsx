@@ -1,8 +1,10 @@
 import { FC } from "react";
+
 import Image from "next/image";
-import { cn } from "@/lib/utils";
+
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { WorkspaceAvatarProps } from "@/interfaces/WorkspaceAvatarProps";
+import { cn } from "@/lib/utils";
 
 const WorkspaceAvatar: FC<WorkspaceAvatarProps> = ({
   image,
@@ -14,7 +16,7 @@ const WorkspaceAvatar: FC<WorkspaceAvatarProps> = ({
       <div
         className={cn("relative size-8 overflow-hidden rounded-md", className)}
       >
-        <Image src={image} alt={name} fill className="object-cover" />
+        <Image src={image} alt={name} className="object-cover" fill />
       </div>
     );
   }

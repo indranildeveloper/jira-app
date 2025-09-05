@@ -1,9 +1,11 @@
 "use client";
 
 import { FC } from "react";
+
+import { useCreateWorkspaceModal } from "@/features/workspaces/hooks/useCreateWorkspaceModal";
+
 import CreateWorkspaceForm from "./CreateWorkspaceForm";
 import ResponsiveModal from "./ResponsiveModal";
-import { useCreateWorkspaceModal } from "@/features/workspaces/hooks/useCreateWorkspaceModal";
 
 const CreateWorkspaceModal: FC = () => {
   const { isOpen, setIsOpen, close } = useCreateWorkspaceModal();

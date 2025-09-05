@@ -1,6 +1,8 @@
 import { FC } from "react";
-import { getCurrentUser } from "@/features/auth/actions/getCurrentUser";
+
 import { redirect } from "next/navigation";
+
+import { getCurrentUser } from "@/features/auth/actions/getCurrentUser";
 import { getWorkspaces } from "@/features/workspaces/actions/getWorkspaces";
 
 const HomePage: FC = async () => {

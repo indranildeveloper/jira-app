@@ -1,8 +1,9 @@
 import { FC } from "react";
-import { DashboardLayoutProps } from "@/interfaces/DashboardLayoutProps";
-import Sidebar from "@/components/shared/dashboard/Sidebar";
-import Navbar from "@/components/shared/dashboard/Navbar";
+
 import CreateWorkspaceModal from "@/components/shared/dashboard/CreateWorkspaceModal";
+import Navbar from "@/components/shared/dashboard/Navbar";
+import Sidebar from "@/components/shared/dashboard/Sidebar";
+import { DashboardLayoutProps } from "@/interfaces/DashboardLayoutProps";
 
 const DashboardLayout: FC<DashboardLayoutProps> = ({ children }) => {
   return (

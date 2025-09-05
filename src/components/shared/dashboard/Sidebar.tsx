@@ -1,15 +1,18 @@
-import { Separator } from "@/components/ui/separator";
+import { FC } from "react";
+
 import Image from "next/image";
 import Link from "next/link";
-import { FC } from "react";
+
+import { Separator } from "@/components/ui/separator";
+
 import Navigation from "./Navigation";
 import WorkspaceSwitcher from "./WorkspaceSwitcher";
 
 const Sidebar: FC = () => {
   return (
     <aside className="h-full w-full bg-slate-100 p-4">
-      <Link href="/" className="flex items-center gap-2">
-        <Image src="/logo.svg" alt="Jira Logo" width={50} height={40} />
+      <Link className="flex items-center gap-2" href="/">
+        <Image src="/logo.svg" alt="Jira Logo" height={40} width={50} />
         <h2 className="text-xl font-bold">Jira App</h2>
       </Link>
       <Separator className="my-4" />

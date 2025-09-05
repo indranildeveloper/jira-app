@@ -1,9 +1,11 @@
 "use server";
 
 import { Account, Client, Databases, Query, TablesDB } from "node-appwrite";
+
 import { cookies } from "next/headers";
-import { AUTH_COOKIE } from "@/features/auth/constants/constants";
+
 import { DATABASE_ID, MEMBERS_ID, WORKSPACES_ID } from "@/config/config";
+import { AUTH_COOKIE } from "@/features/auth/constants/constants";
 
 export const getWorkspaces = async () => {
   try {

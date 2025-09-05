@@ -1,6 +1,7 @@
 import { FC } from "react";
-import UserButton from "../auth/UserButton";
+
 import MobileSidebar from "./MobileSidebar";
+import UserButton from "../auth/UserButton";
 
 const Navbar: FC = () => {
   return (

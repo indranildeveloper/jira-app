@@ -1,9 +1,12 @@
 import { FC } from "react";
+
 import type { Metadata } from "next";
-import { Inter, Fira_Code } from "next/font/google";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
-import { Toaster } from "@/components/ui/sonner";
+
+import { Inter, Fira_Code } from "next/font/google";
+
 import QueryProvider from "@/components/providers/ReactQueryClientProvider";
+import { Toaster } from "@/components/ui/sonner";
 import { RootLayoutProps } from "@/interfaces/RootLayoutProps";
 
 import "@/styles/globals.css";

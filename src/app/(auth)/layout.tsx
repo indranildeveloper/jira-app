@@ -1,9 +1,11 @@
 "use client";
 
 import { FC } from "react";
+
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+
 import { Button } from "@/components/ui/button";
 import { AuthLayoutProps } from "@/interfaces/AuthLayoutProps";
 
@@ -16,7 +18,7 @@ const AuthLayout: FC<AuthLayoutProps> = ({ children }) => {
       <div className="max-screen-w-2xl mx-auto p-4">
         <nav className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Image src="/logo.svg" alt="Jira Logo" width={60} height={40} />
+            <Image src="/logo.svg" alt="Jira Logo" height={40} width={60} />
             <h2 className="text-2xl">Jira App</h2>
           </div>
           <div className="flex items-center gap-2">

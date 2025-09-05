@@ -1,9 +1,11 @@
 "use client";
 
 import { FC } from "react";
-import { useRouter } from "next/navigation";
+
 import { RiAddCircleFill } from "react-icons/ri";
-import { useGetWorkspaces } from "@/features/workspaces/api/useGetWorkspaces";
+
+import { useRouter } from "next/navigation";
+
 import {
   Select,
   SelectContent,
@@ -11,9 +13,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import WorkspaceAvatar from "./WorkspaceAvatar";
-import { useWorkspaceId } from "@/features/workspaces/hooks/useWorkspaceId";
+import { useGetWorkspaces } from "@/features/workspaces/api/useGetWorkspaces";
 import { useCreateWorkspaceModal } from "@/features/workspaces/hooks/useCreateWorkspaceModal";
+import { useWorkspaceId } from "@/features/workspaces/hooks/useWorkspaceId";
+
+import WorkspaceAvatar from "./WorkspaceAvatar";
 
 const WorkspaceSwitcher: FC = () => {
   const router = useRouter();
@@ -34,12 +38,16 @@ const WorkspaceSwitcher: FC = () => {
         </button>
       </div>
       <Select value={workspaceId} onValueChange={handleWorkspaceChange}>
-        <SelectTrigger className="w-full bg-slate-200 py-6 font-medium">
+        <SelectTrigger className="w-full cursor-pointer bg-slate-200 py-6 font-medium">
           <SelectValue placeholder="No workspace selected" />
         </SelectTrigger>
         <SelectContent>
           {workspaces?.rows.map((workspace) => (
-            <SelectItem key={workspace.$id} value={workspace.$id}>
+            <SelectItem
+              key={workspace.$id}
+              value={workspace.$id}
+              className="cursor-pointer"
+            >
               <div className="flex items-center justify-start gap-3 font-medium">
                 <WorkspaceAvatar
                   name={workspace.name}

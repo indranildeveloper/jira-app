@@ -1,7 +1,9 @@
 "use server";
 
 import { Account, Client } from "node-appwrite";
+
 import { cookies } from "next/headers";
+
 import { AUTH_COOKIE } from "../constants/constants";
 
 export const getCurrentUser = async () => {
