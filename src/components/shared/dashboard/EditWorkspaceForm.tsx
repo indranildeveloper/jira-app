@@ -3,7 +3,7 @@
 import { ChangeEvent, FC, useRef } from "react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ImageIcon } from "lucide-react";
+import { ArrowLeftIcon, ImageIcon } from "lucide-react";
 import { useForm } from "react-hook-form";
 
 import Image from "next/image";
@@ -22,36 +22,43 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
-import { useCreateWorkspace } from "@/features/workspaces/api/useCreateWorkspace";
-import { CreateWorkspaceFormProps } from "@/interfaces/CreateWorkspaceFormProps";
+import { useUpdateWorkspace } from "@/features/workspaces/api/useUpdateWorkspace";
+import { EditWorkspaceFormProps } from "@/interfaces/EditWorkspaceFormProps";
 import { cn } from "@/lib/utils";
 import {
-  createWorkSpaceSchema,
-  createWorkspaceValidator,
-} from "@/validators/workspaces/createWorkspaceValidator";
+  updateWorkSpaceSchema,
+  updateWorkspaceValidator,
+} from "@/validators/workspaces/updateWorkspaceValidator";
 
-const CreateWorkspaceForm: FC<CreateWorkspaceFormProps> = ({
+const EditWorkspaceForm: FC<EditWorkspaceFormProps> = ({
   handleCancel,
+  initialValues,
 }) => {
   const router = useRouter();
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const { mutate: createWorkspace, isPending } = useCreateWorkspace();
+  const { mutate: updateWorkspace, isPending } = useUpdateWorkspace();
 
-  const form = useForm<createWorkspaceValidator>({
-    resolver: zodResolver(createWorkSpaceSchema),
+  const form = useForm<updateWorkspaceValidator>({
+    resolver: zodResolver(updateWorkSpaceSchema),
     defaultValues: {
-      name: "",
+      ...initialValues,
+      image: initialValues.imageUrl ?? "",
     },
   });
 
-  const handleCreateWorkspace = (values: createWorkspaceValidator) => {
+  const handleCreateWorkspace = (values: updateWorkspaceValidator) => {
     const finalValues = {
       ...values,
       image: values.image instanceof File ? values.image : "",
     };
 
-    createWorkspace(
-      { form: finalValues },
+    updateWorkspace(
+      {
+        form: finalValues,
+        param: {
+          workspaceId: initialValues.$id,
+        },
+      },
       {
         onSuccess: ({ data }) => {
           form.reset();
@@ -71,9 +78,20 @@ const CreateWorkspaceForm: FC<CreateWorkspaceFormProps> = ({
 
   return (
     <Card className="h-full w-full border-none shadow-none">
-      <CardHeader className="flex">
+      <CardHeader className="flex flex-row items-center space-y-0 gap-x-4">
+        <Button
+          size="sm"
+          variant="secondary"
+          onClick={
+            handleCancel
+              ? handleCancel
+              : () => router.push(`/workspaces/${initialValues.$id}`)
+          }
+        >
+          <ArrowLeftIcon className="size-4" /> Back
+        </Button>
         <CardTitle className="text-xl font-bold">
-          Create a new Workspace
+          {initialValues.name}
         </CardTitle>
       </CardHeader>
       <div className="px-7">
@@ -188,7 +206,7 @@ const CreateWorkspaceForm: FC<CreateWorkspaceFormProps> = ({
                 size="lg"
                 variant="default"
               >
-                Create Workspace
+                Save Changes
               </Button>
             </div>
           </form>
@@ -198,4 +216,4 @@ const CreateWorkspaceForm: FC<CreateWorkspaceFormProps> = ({
   );
 };
 
-export default CreateWorkspaceForm;
+export default EditWorkspaceForm;

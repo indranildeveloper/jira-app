@@ -1,6 +1,6 @@
 "use server";
 
-import { Account, Client, Databases, Query, TablesDB } from "node-appwrite";
+import { Account, Client, Query, TablesDB } from "node-appwrite";
 
 import { cookies } from "next/headers";
 
