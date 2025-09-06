@@ -14,10 +14,10 @@ const HomePage: FC = async () => {
 
   const workspaces = await getWorkspaces();
 
-  if (workspaces.total === 0) {
+  if (workspaces?.total === 0) {
     return redirect("/workspaces/create");
   } else {
-    redirect(`/workspaces/${workspaces.rows[0].$id}`);
+    redirect(`/workspaces/${workspaces?.rows[0].$id}`);
   }
 };
 

@@ -1,29 +1,19 @@
 "use server";
 
-import { Account, Client, Query, TablesDB } from "node-appwrite";
+import { Query } from "node-appwrite";
 
-import { cookies } from "next/headers";
-
+import { createSessionClient } from "@/appwrite/appwrite";
 import { DATABASE_ID, MEMBERS_ID, WORKSPACES_ID } from "@/config/config";
-import { AUTH_COOKIE } from "@/features/auth/constants/constants";
 
 export const getWorkspaces = async () => {
   try {
-    const client = new Client()
-      .setEndpoint(process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT as string)
-      .setProject(process.env.NEXT_PUBLIC_APPWRITE_PROJECT as string);
+    const sessionClient = await createSessionClient();
 
-    const session = (await cookies()).get(AUTH_COOKIE);
-
-    if (!session) {
-      return { rows: [], total: 0 };
+    if (!sessionClient) {
+      return null;
     }
 
-    client.setSession(session?.value);
-
-    // const databases = new Databases(client);
-    const tables = new TablesDB(client);
-    const account = new Account(client);
+    const { tables, account } = sessionClient;
 
     const user = await account.get();
 

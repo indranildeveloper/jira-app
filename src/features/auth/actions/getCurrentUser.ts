@@ -1,26 +1,16 @@
 "use server";
 
-import { Account, Client } from "node-appwrite";
-
-import { cookies } from "next/headers";
-
-import { AUTH_COOKIE } from "../constants/constants";
+import { createSessionClient } from "@/appwrite/appwrite";
 
 export const getCurrentUser = async () => {
   try {
-    const client = new Client()
-      .setEndpoint(process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT as string)
-      .setProject(process.env.NEXT_PUBLIC_APPWRITE_PROJECT as string);
+    const sessionClient = await createSessionClient();
 
-    const session = (await cookies()).get(AUTH_COOKIE);
-
-    if (!session) {
+    if (!sessionClient) {
       return null;
     }
 
-    client.setSession(session?.value);
-
-    const account = new Account(client);
+    const { account } = sessionClient;
 
     return await account.get();
   } catch (error) {
