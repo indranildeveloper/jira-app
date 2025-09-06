@@ -100,6 +100,33 @@ const app = new Hono()
       return ctx.json({ data: workspace });
     },
   )
+  .post("/:workspaceId/reset-invite-code", sessionMiddleware, async (ctx) => {
+    const { workspaceId } = ctx.req.param();
+
+    const tables = ctx.get("tables");
+    const user = ctx.get("user");
+
+    const member = await getMember({
+      databases: tables,
+      workspaceId,
+      userId: user.$id,
+    });
+
+    if (!member || member.role !== MemberRole.ADMIN) {
+      return ctx.json({ error: "Unauthorized" }, 401);
+    }
+
+    const workspace = await tables.updateRow({
+      databaseId: DATABASE_ID,
+      tableId: WORKSPACES_ID,
+      rowId: workspaceId,
+      data: {
+        inviteCode: generateInviteCode(10),
+      },
+    });
+
+    return ctx.json({ data: workspace });
+  })
   .patch(
     "/:workspaceId",
     sessionMiddleware,
