@@ -153,6 +153,32 @@ const app = new Hono()
 
       return ctx.json({ data: workspace });
     },
-  );
+  )
+  .delete("/:workspaceId", sessionMiddleware, async (ctx) => {
+    const { workspaceId } = ctx.req.param();
+
+    const tables = ctx.get("tables");
+    const user = ctx.get("user");
+
+    const member = await getMember({
+      databases: tables,
+      workspaceId,
+      userId: user.$id,
+    });
+
+    if (!member || member.role !== MemberRole.ADMIN) {
+      return ctx.json({ error: "Unauthorized" }, 401);
+    }
+
+    // TODO: delete members, projects and tasks
+
+    await tables.deleteRow({
+      databaseId: DATABASE_ID,
+      tableId: WORKSPACES_ID,
+      rowId: workspaceId,
+    });
+
+    return ctx.json({ data: { $id: workspaceId } });
+  });
 
 export default app;
